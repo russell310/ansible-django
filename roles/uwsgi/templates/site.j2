@@ -1,0 +1,13 @@
+[uwsgi]
+
+chdir = {{ project_path }}
+home = {{ virtualenv_path }}
+module = {{ project_name }}.wsgi:application
+
+master = true
+processes = 5
+
+socket = {{ project_path }}/{{ project_name }}.sock
+chmod-socket = 666
+
+vacuum = true

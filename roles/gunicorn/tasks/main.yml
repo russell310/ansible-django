@@ -1,0 +1,18 @@
+---
+
+- name: Install Gunicorn
+  pip: 
+    name: gunicorn
+    executable: "{{ python_pip_exc }}"
+
+- name: Copy gunicorn start file
+  template: 
+    src: templates/gunicorn_start.j2 
+    dest: "{{ virtualenv_path }}/bin/gunicorn_start"
+    mode: 0755
+
+- name: Create (or retain) the application log file
+  copy:
+    content: ""
+    dest: "{{ install_root }}/logs/gunicorn-error.log"
+    mode: 0664

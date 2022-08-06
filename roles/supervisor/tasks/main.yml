@@ -1,0 +1,10 @@
+---
+
+- name: Install supervisor
+  apt: update_cache=yes state=present pkg=supervisor
+  
+- name: Copy supervisor config file
+  template: 
+    src: templates/supervisor_conf.j2 
+    dest: "/etc/supervisor/conf.d/{{ project_name }}.conf"
+  notify: restart supervisor

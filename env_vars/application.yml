@@ -1,0 +1,16 @@
+---
+install_root: /home/{{ project_folder }}
+project_path: "{{ install_root }}/{{ project_name }}"
+virtualenv_path: "{{ install_root }}/venv/"
+python_pip_exc: "{{ virtualenv_path }}bin/pip"
+ssh_private_key: ~/.ssh/id_rsa 
+system_packages:
+  - git
+  - nginx
+  - postgresql
+  - postgresql-contrib
+  - python-pkg-resources
+  - python3-pip
+  - python3-dev
+  - libpq-dev
+  - virtualenv

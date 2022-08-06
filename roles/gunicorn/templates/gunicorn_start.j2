@@ -1,0 +1,22 @@
+#!/bin/sh
+
+ProjectName="{{ project_name }}"
+ProjectDir="{{ project_path }}"
+SockFile={{ project_path }}/gunicorn.sock
+User=root
+Group=root
+NumWorkers=3
+
+echo "Starting $ProjectName as `whoami`"
+
+cd $ProjectDir
+. {{ virtualenv_path }}bin/activate
+
+exec gunicorn \
+    --name $ProjectName \
+    --workers $NumWorkers \
+    --timeout {{ gunicorn_timeout_seconds|default(30) }} \
+    --user $User --group $Group \
+    --log-level error \
+    --bind unix:$SockFile \
+    {{ project_name }}.wsgi

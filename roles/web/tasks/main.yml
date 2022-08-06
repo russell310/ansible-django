@@ -1,0 +1,54 @@
+---
+- name: Create Virtualenv
+  command: virtualenv {{ virtualenv_path }} -p python3 creates="{{ virtualenv_path }}"
+
+- name: Ensure Git Repo Is Present
+  git:
+    repo: "{{ project_repo }}"
+    dest: "{{ project_path }}"
+    update: yes
+    accept_hostkey: Yes
+
+- name: Install PSYCOPG2
+  pip: 
+    name: psycopg2-binary
+    executable: "{{ python_pip_exc }}"
+
+- name: Copy .env file
+  template: 
+    src: templates/env.j2 
+    dest: "{{ project_path }}/.env"
+
+- name: Create Log Folder
+  file: 
+    path: "{{ install_root }}/logs/"
+    state: directory
+
+- name: install requirements
+  pip:
+    requirements: "{{ project_path }}/requirements.txt"
+    executable: "{{ python_pip_exc }}"
+
+- name: Make manage.py Executable
+  file:
+    path: "{{ project_path }}/manage.py"
+    mode: 0777
+
+- name: Running Django Migrations
+  django_manage:
+    command: makemigrations
+    virtualenv: "{{ virtualenv_path }}"
+    app_path: "{{ project_path }}"
+
+- name: Running Django Migrate
+  django_manage:
+    command: migrate
+    virtualenv: "{{ virtualenv_path }}"
+    app_path: "{{ project_path }}"
+
+- name: Collecting Static Files
+  django_manage:
+    command: collectstatic
+    virtualenv: "{{ virtualenv_path }}"
+    app_path: "{{ project_path }}"
+

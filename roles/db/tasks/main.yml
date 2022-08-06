@@ -1,0 +1,19 @@
+---
+
+- name: Install PSYCOPG2
+  pip: 
+    name: psycopg2-binary
+  notify: start postgresql
+
+- name: Create Database
+  become_user: postgres
+  postgresql_db: name={{ db_name }} state=present
+
+- name: Create Database User
+  become_user: postgres
+  postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} encrypted=yes priv=ALL
+
+- name: Ensure user does not have unnecessary privileges
+  become_user: postgres
+  postgresql_user: name={{ db_user }} role_attr_flags=SUPERUSER,NOCREATEDB state=present
+  notify: restart postgresql

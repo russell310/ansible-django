@@ -1,0 +1,6 @@
+---
+- name: Refresh
+  raw: apt-get update
+
+- name: Installing System Packages
+  apt: pkg={{ system_packages }} update-cache=yes

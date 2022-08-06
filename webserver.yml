@@ -1,0 +1,17 @@
+---
+- hosts: webservers
+  vars_files:
+      - env_vars/base.yml
+      - env_vars/application.yml
+  roles:
+    - system
+    - db
+    - web
+    # - uwsgi
+    - gunicorn
+    - supervisor
+    - nginx
+    - security
+    
+  become: true
+  gather_facts: no

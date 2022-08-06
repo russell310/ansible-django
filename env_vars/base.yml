@@ -1,0 +1,23 @@
+---
+server_ip: xxx.xxx.xxx.xxx
+website_name: example.com
+
+project_folder: project
+project_name: project_name
+project_repo: git@github.com:your_id/project_name.git
+db_name: db_name
+db_user: db_user
+db_password: db_password
+
+SECRET_KEY: django-insecure-ux@(v-%qo_^lq5^jyog_%c$(0hpvljwepb!75khu%&^rr4=fqs
+DEBUG: True
+ALLOWED_HOSTS: "{{ website_name }}"
+DATABASE_URL: "postgres://{{ db_user }}:{{ db_password }}@localhost:5432/{{ db_name }}"
+# DATABASE_URL: "mysql://{{ db_user }}:{{ db_password }}@localhost:3306/{{ db_name }}"
+# DATABASE_URL: sqlite:///db.sqlite3
+EMAIL_BACKEND: django.core.mail.backends.console.EmailBackend
+EMAIL_HOST: 
+EMAIL_HOST_USER: 
+EMAIL_HOST_PASSWORD: 
+AWS_ACCESS_KEY_ID: 
+AWS_SECRET_ACCESS_KEY: 

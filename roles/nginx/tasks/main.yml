@@ -1,0 +1,17 @@
+---
+- name: Copy Nginx Config
+  template: 
+    # src: templates/nginx_uwsgi.j2 
+    src: templates/nginx_gunicorn.j2 
+    dest: /etc/nginx/sites-available/{{ project_name }}
+
+- name: Ensure that the default site is disabled
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: nginx reload
+
+- name: Create Symlink To {{ website_name }}
+  file: 
+    src: /etc/nginx/sites-available/{{ project_name }} 
+    dest: /etc/nginx/sites-enabled/{{ project_name }}
+    state: link
+  notify: nginx reload

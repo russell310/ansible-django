@@ -1,0 +1,19 @@
+---
+- name: Install UWSGI
+  command: pip3 install uwsgi
+
+- name: Copy UWSGI Config
+  template: 
+    src: templates/uwsgi.service.j2 
+    dest: /etc/systemd/system/uwsgi.service
+    force: no
+
+- name: Ensures /etc/uwsgi/sites Folder Exits
+  file: path=/etc/uwsgi/sites state=directory
+
+- name: Copy Site Config
+  template: 
+    src: templates/site.j2 
+    dest: /etc/uwsgi/sites/{{ project_name }}.ini
+  notify:
+  - restart uwsgi

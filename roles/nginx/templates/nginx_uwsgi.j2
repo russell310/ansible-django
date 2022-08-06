@@ -1,0 +1,27 @@
+server {
+
+    listen 80;
+    server_name {{ website_name }} www.{{ website_name }};
+
+    keepalive_timeout 5;
+    client_max_body_size 4G;
+
+    access_log {{ install_root }}/logs/nginx-access.log;
+    error_log {{ install_root }}/logs/nginx-error.log;
+
+    location /static {
+        autoindex off;
+        alias {{ project_path }}/static_root;
+    }
+
+    location /media {
+        autoindex off;
+        alias {{ project_path }}/media;
+    }
+
+    location / {
+        include /etc/nginx/uwsgi_params;
+        uwsgi_pass unix:{{ project_path }}/{{ project_name }}.sock;
+    }
+
+}
