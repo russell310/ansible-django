@@ -9,7 +9,7 @@ db_name: db_name
 db_user: db_user
 db_password: db_password
 
-SECRET_KEY: django-insecure-ux@(v-%qo_^lq5^jyog_%c$(0hpvljwepb!75khu%&^rr4=fqs
+SECRET_KEY: secret_key
 DEBUG: True
 ALLOWED_HOSTS: "{{ website_name }}"
 DATABASE_URL: "postgres://{{ db_user }}:{{ db_password }}@localhost:5432/{{ db_name }}"
