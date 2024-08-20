@@ -34,11 +34,11 @@
     path: "{{ project_path }}/manage.py"
     mode: 0777
 
-- name: Running Django Migrations
-  django_manage:
-    command: makemigrations
-    virtualenv: "{{ virtualenv_path }}"
-    app_path: "{{ project_path }}"
+# - name: Running Django Migrations
+#   django_manage:
+#     command: makemigrations
+#     virtualenv: "{{ virtualenv_path }}"
+#     app_path: "{{ project_path }}"
 
 - name: Running Django Migrate
   django_manage:

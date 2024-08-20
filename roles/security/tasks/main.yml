@@ -1,4 +1,7 @@
 ---
 
-- include: ufw.yml
-- include: fail2ban.yml
+- name: Include ufw tasks
+  include_tasks: ufw.yml
+
+- name: Include fail2ban tasks
+  include_tasks: fail2ban.yml
